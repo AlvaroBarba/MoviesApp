@@ -8,6 +8,7 @@ import com.example.moviesapp.interfaces.IList;
 public class ListPresenter implements IList.Presenter {
 
     private IList.View view;
+    private static final String TAG  = "presenters/ListPresenter";
 
     public ListPresenter(IList.View view) {
         this.view=view;
@@ -16,7 +17,7 @@ public class ListPresenter implements IList.Presenter {
     @SuppressLint("LongLogTag")
     @Override
     public void onClickAddMovie() {
-        Log.d("presenters/ListPresenter","Estamos en OnClickAddMovie");
+        Log.d(TAG,"Inside OnClickAddMovie");
         view.startFormActivity();
     }
 

@@ -37,37 +37,43 @@ public class ListActivity extends AppCompatActivity implements IList.View {
 
     @Override
     protected void onRestart() {
+        Log.d(TAG, "Inside onRestart()");
         super.onRestart();
     }
 
     @Override
     protected void onStop() {
+        Log.d(TAG, "Inside onStop()");
         super.onStop();
     }
 
     @Override
     protected void onResume() {
+        Log.d(TAG, "Inside onResume()");
         super.onResume();
     }
 
     @Override
     protected void onPause() {
+        Log.d(TAG, "Inside onPause()");
         super.onPause();
     }
 
     @Override
     protected void onDestroy() {
+        Log.d(TAG, "Inside onDestroy()");
         super.onDestroy();
     }
 
     @Override
     protected void onStart() {
+        Log.d(TAG, "Inside onStart()");
         super.onStart();
     }
 
     @Override
     public void startFormActivity() {
-        Log.d(TAG, "Dentro de startFormActivity()");
+        Log.d(TAG, "Inside startFormActivity()");
         Intent intent = new Intent(getApplicationContext(), FormActivity.class);
         startActivity(intent);
     }

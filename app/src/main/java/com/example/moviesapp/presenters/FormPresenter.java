@@ -6,6 +6,8 @@ import android.util.Log;
 import com.example.moviesapp.interfaces.IForm;
 
 public class FormPresenter implements IForm.Presenter{
+
+    private static final String TAG = "presenters/FormPresenter";
     private IForm.View view;
 
     public FormPresenter(IForm.View view) {
@@ -15,7 +17,7 @@ public class FormPresenter implements IForm.Presenter{
     @SuppressLint("LongLogTag")
     @Override
     public void onClickSaveButton() {
-        Log.d("presenters/FormPresenter","Estamos en OnClickSaveButton");
+        Log.d(TAG,"Inside OnClickSaveButton");
         view.finishFormActivity();
     }
 }
