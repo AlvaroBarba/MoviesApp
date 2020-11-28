@@ -22,9 +22,9 @@ public class FormActivity extends AppCompatActivity implements IForm.View {
         setContentView(R.layout.activity_form);
         presenter = new FormPresenter(this);
         Button button = findViewById(R.id.save);
-        Toolbar toolbar = findViewById(R.id.toolbar2);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Formulario");
+        getSupportActionBar().setTitle(R.string.formTitle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         button.setOnClickListener(v -> {
             presenter.onClickSaveButton();

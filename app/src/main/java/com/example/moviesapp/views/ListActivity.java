@@ -9,10 +9,14 @@ import com.example.moviesapp.presenters.ListPresenter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 public class ListActivity extends AppCompatActivity implements IList.View {
@@ -27,12 +31,33 @@ public class ListActivity extends AppCompatActivity implements IList.View {
         presenter = new ListPresenter(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Listado de Películas");
+        getSupportActionBar().setTitle(R.string.list_filmsTitle);
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(v -> {
             presenter.onClickAddMovie();
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.search:
+                presenter.onClickSearchButton();
+                break;
+            case R.id.aboutApp:
+                presenter.onClickAPPCRUD();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -75,6 +100,18 @@ public class ListActivity extends AppCompatActivity implements IList.View {
     public void startFormActivity() {
         Log.d(TAG, "Inside startFormActivity()");
         Intent intent = new Intent(getApplicationContext(), FormActivity.class);
+        startActivity(intent);
+    }
+
+    public void startSearchActivity() {
+        Log.d(TAG, "Inside startSearchActivity()");
+        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+        startActivity(intent);
+    }
+
+    public void startAppCRUDActivity(){
+        Log.d(TAG, "Inside startAppCRUDActivity");
+        Intent intent = new Intent(getApplicationContext(), AppCRUDActivity.class);
         startActivity(intent);
     }
 }

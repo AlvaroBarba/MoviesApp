@@ -21,4 +21,16 @@ public class ListPresenter implements IList.Presenter {
         view.startFormActivity();
     }
 
+    @SuppressLint("LongLogTag")
+    public void onClickSearchButton(){
+        Log.d(TAG, "Inside OnClickSearchButton");
+        view.startSearchActivity();
+    }
+
+    @SuppressLint("LongLogTag")
+    public void onClickAPPCRUD(){
+        Log.d(TAG, "Inside OnClickAppCRUD");
+        view.startAppCRUDActivity();
+    }
+
 }
