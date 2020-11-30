@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ConstraintLayout"
@@ -21,10 +20,13 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="55dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AppCrudToolbar">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.383">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -36,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
                 android:layout_marginEnd="87dp"
-                android:text="Añadir opcion"
+                android:text="@string/addOption"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
@@ -47,7 +49,7 @@
                 android:layout_marginStart="45dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="15dp"
-                android:text="Borrar Formulario"
+                android:text="@string/DeleteForm"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/save"
                 app:layout_constraintTop_toBottomOf="@+id/Watched" />
@@ -77,7 +79,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Valoración (0-5)" />
+                    android:hint="@string/Rate" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
@@ -105,7 +107,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Fecha (dd/mm/aaaa)" />
+                    android:hint="@string/Date" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
@@ -133,7 +135,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Sinopsis" />
+                    android:hint="@string/synopsis" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
@@ -173,7 +175,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Director" />
+                    android:hint="@string/director" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -190,7 +192,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Título" />
+                    android:hint="@string/title" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
@@ -210,7 +212,7 @@
                 android:layout_height="48dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="30dp"
-                android:text="Pendiente de ver"
+                android:text="@string/forWatch"
                 android:textColor="#000000"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -245,7 +247,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="25dp"
-                android:text="Quitar imagen"
+                android:text="@string/DeleteImage"
                 app:layout_constraintStart_toEndOf="@+id/addImage"
                 app:layout_constraintTop_toBottomOf="@+id/addOption" />
 
@@ -256,7 +258,7 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="15dp"
-                android:text="Guardar"
+                android:text="@string/save"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Watched" />

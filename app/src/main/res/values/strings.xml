@@ -19,4 +19,22 @@
     <string name="search">Buscar</string>
     <string name="list_filmsTitle">Listado de Peliculas</string>
     <string name="formTitle">Añadir Pelicula</string>
+    <string name="TypeFiction">Ficción</string>
+    <string name="TypeAction">Acción</string>
+    <string name="TypeDrama">Drama</string>
+    <string name="TypeComedy">Comedia</string>
+    <string name="TypePolice">Policiaca</string>
+    <string name="TypeRomantic">Romantica</string>
+    <string name="TypeChild">Infantil</string>
+    <string name="addOption">Añadir opcion</string>
+    <string name="DeleteForm">Borrar Formulario</string>
+    <string name="Rate">Valoración (0-5)</string>
+    <string name="Date">Fecha (dd/mm/aaaa)</string>
+    <string name="synopsis">sinopsis</string>
+    <string name="director">Director</string>
+    <string name="title">Título</string>
+    <string name="forWatch">Pendiente de ver</string>
+    <string name="DeleteImage">Quitar imagen</string>
+    <string name="save">Guardar</string>
+    <string name="parametersOfSearch">Parametros de búsqueda</string>
 </resources>
