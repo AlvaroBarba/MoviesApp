@@ -44,7 +44,7 @@ public class SearchActivity extends AppCompatActivity implements ISearch.View{
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Spinner spinner = (Spinner) findViewById(R.id.searchSpinner);
         String[] types = {
-                getString(R.string.TypeFiction), getString(R.string.TypeAction), getString(R.string.TypeDrama),
+                getString(R.string.selectGenre),getString(R.string.TypeFiction), getString(R.string.TypeAction), getString(R.string.TypeDrama),
                 getString(R.string.TypeComedy), getString(R.string.TypePolice), getString(R.string.TypeRomantic),
                 getString(R.string.TypeChild)
         };

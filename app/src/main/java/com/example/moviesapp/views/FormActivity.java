@@ -16,6 +16,7 @@ public class FormActivity extends AppCompatActivity implements IForm.View {
     private IForm.Presenter presenter;
     private static final String TAG = "/views/FormActivity";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,4 +75,6 @@ public class FormActivity extends AppCompatActivity implements IForm.View {
         Log.d(TAG, "Inside startFormActivity()");
         finish();
     }
+
+
 }

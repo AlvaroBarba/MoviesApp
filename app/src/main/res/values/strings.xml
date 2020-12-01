@@ -37,4 +37,16 @@
     <string name="DeleteImage">Quitar imagen</string>
     <string name="save">Guardar</string>
     <string name="parametersOfSearch">Parametros de búsqueda</string>
+    <string name="selectGenre">Seleccione un género</string>
+    <string name="fieldTitleEmpty">Titulo esta vacio</string>
+    <string name="FieldTitleWrong">Titulo contiene caracteres no permitidos (solo letras)</string>
+    <string name="FieldDirectorEmpty">Director esta vacio</string>
+    <string name="FieldDirectorWrong">Director contiene caracteres no permitidos (solo letras)</string>
+    <string name="FieldSynopsisEmpty">Sinopsis esta vacio</string>
+    <string name="FieldSynopsisWrong">Sinopsis contiene caracteres no permitidos (solo letras y números)</string>
+    <string name="FieldDateEmpty">Campo fecha vacio</string>
+    <string name="FieldDateWrong">La fecha introducida no es correcta</string>
+    <string name="FieldRateEmpty">Valoracion vacia</string>
+    <string name="FieldRateWrong">Valoracion incorrecta numeros entre 0-5</string>
+    <string name="FieldGenreEmpty">Genero vacio</string>
 </resources>
