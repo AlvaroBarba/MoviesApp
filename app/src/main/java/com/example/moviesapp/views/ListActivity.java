@@ -7,7 +7,6 @@ import com.example.moviesapp.R;
 import com.example.moviesapp.interfaces.IList;
 import com.example.moviesapp.presenters.ListPresenter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +16,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 public class ListActivity extends AppCompatActivity implements IList.View {
 
