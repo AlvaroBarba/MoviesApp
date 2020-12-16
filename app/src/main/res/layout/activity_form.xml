@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
+        android:fontFamily="@font/sweet"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         tools:ignore="MissingConstraints" />
@@ -40,7 +41,7 @@
                 android:layout_marginEnd="87dp"
                 android:text="@string/addOption"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner" />
+                app:layout_constraintTop_toBottomOf="@+id/genreSpinner" />
 
             <Button
                 android:id="@+id/deleteForm"
@@ -59,7 +60,7 @@
                 android:layout_width="69dp"
                 android:layout_height="75dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40dp"
                 android:scaleType="fitCenter"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView6"
@@ -68,7 +69,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/rateUs"
                 android:layout_width="241dp"
-                android:layout_height="69dp"
+                android:layout_height="80dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="36dp"
                 android:layout_marginEnd="30dp"
@@ -77,6 +78,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/calendar">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/rateUsET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/Rate" />
@@ -87,44 +89,32 @@
                 android:layout_width="69dp"
                 android:layout_height="75dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40dp"
                 android:scaleType="fitCenter"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView5"
+                app:layout_constraintTop_toBottomOf="@+id/addDate"
                 app:srcCompat="@drawable/estrellas" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/calendar"
                 android:layout_width="241dp"
-                android:layout_height="69dp"
-                android:layout_marginStart="30dp"
+                android:layout_height="80dp"
                 android:layout_marginTop="36dp"
                 android:layout_marginEnd="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView5"
                 app:layout_constraintTop_toBottomOf="@+id/synopsis">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/calendarET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/Date" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="69dp"
-                android:layout_height="75dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
-                android:scaleType="fitCenter"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView3"
-                app:srcCompat="@drawable/calendario" />
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/synopsis"
                 android:layout_width="241dp"
-                android:layout_height="69dp"
+                android:layout_height="80dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="36dp"
                 android:layout_marginEnd="30dp"
@@ -133,6 +123,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/director">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/synopsisET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/synopsis" />
@@ -143,7 +134,7 @@
                 android:layout_width="69dp"
                 android:layout_height="75dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="45dp"
                 android:scaleType="fitCenter"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView2"
@@ -154,7 +145,7 @@
                 android:layout_width="69dp"
                 android:layout_height="75dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40dp"
                 android:background="#00C19EFF"
                 android:scaleType="fitCenter"
                 app:layout_constraintStart_toStartOf="parent"
@@ -164,7 +155,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/director"
                 android:layout_width="241dp"
-                android:layout_height="69dp"
+                android:layout_height="80dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="36dp"
                 android:layout_marginEnd="30dp"
@@ -173,6 +164,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/film">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/directorET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/director" />
@@ -181,7 +173,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/film"
                 android:layout_width="241dp"
-                android:layout_height="69dp"
+                android:layout_height="80dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="30dp"
@@ -190,6 +182,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/filmET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/title" />
@@ -223,7 +216,7 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/genreSpinner"
                 android:layout_width="241dp"
                 android:layout_height="69dp"
                 android:layout_marginStart="30dp"
@@ -262,6 +255,17 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Watched" />
+
+            <ImageButton
+                android:id="@+id/addDate"
+                android:layout_width="69dp"
+                android:layout_height="75dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="40dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3"
+                app:srcCompat="@drawable/calendario" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

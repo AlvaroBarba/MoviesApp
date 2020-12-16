@@ -20,7 +20,7 @@ public class EntityFilm {
     public Integer setTitle(String title) {
         int err = 0;
         if(!title.isEmpty()){
-            Pattern p = Pattern.compile("[a-zA-z ]");
+            Pattern p = Pattern.compile("[a-zA-ZñÑ ]");
             Matcher m = p.matcher(title);
             if(!m.find()){
                 err = 2; //Only letters
@@ -40,7 +40,7 @@ public class EntityFilm {
     public Integer setDirector(String director) {
         int err = 0;
         if(!director.isEmpty()){
-            Pattern p = Pattern.compile("[a-zA-z ]");
+            Pattern p = Pattern.compile("[a-zA-ZñÑ ]");
             Matcher m = p.matcher(director);
             if(!m.find()){
                 err = 2; //Only letters
@@ -60,7 +60,7 @@ public class EntityFilm {
     public Integer setSynopsis(String synopsis) {
         int err = 0;
         if(!synopsis.isEmpty()){
-            Pattern p = Pattern.compile("[a-zA-z0-9 ]");
+            Pattern p = Pattern.compile("[a-zA-Z0-9ñÑ ]");
             Matcher m = p.matcher(synopsis);
             if(!m.find()){
                 err = 2; //Only letters and numbers
@@ -121,13 +121,7 @@ public class EntityFilm {
         return genre;
     }
 
-    public Integer setGenre(String genre) {
-        int err = 0;
-        if(!genre.isEmpty()){
-            this.genre = genre;
-        }else{
-            err = 1; //Empty field
-        }
-        return err;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 }

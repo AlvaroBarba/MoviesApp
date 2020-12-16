@@ -1,15 +1,15 @@
 <resources>
-    <string name="app_name">MoviesApp</string>
-    <string name="title_activity_list">ListActivity</string>
+    <string name="app_name" translatable="false">MoviesApp</string>
+    <string name="title_activity_list" translatable="false">ListActivity</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="first_fragment_label" translatable="false">First Fragment</string>
+    <string name="second_fragment_label" translatable="false">Second Fragment</string>
+    <string name="next" translatable="false">Next</string>
+    <string name="previous" translatable="false">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="title_activity_form">FormActivity</string>
+    <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
+    <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_form" translatable="false">FormActivity</string>
     <string name="DeveloperContact">Contacto: aabarba@iesfranciscodelosrios.es</string>
     <string name="developerName">Desarrollador: Álvaro Barba Ruiz</string>
     <string name="ordenar">Ordenar</string>
@@ -38,15 +38,20 @@
     <string name="save">Guardar</string>
     <string name="parametersOfSearch">Parametros de búsqueda</string>
     <string name="selectGenre">Seleccione un género</string>
-    <string name="fieldTitleEmpty">Titulo esta vacio</string>
-    <string name="FieldTitleWrong">Titulo contiene caracteres no permitidos (solo letras)</string>
-    <string name="FieldDirectorEmpty">Director esta vacio</string>
-    <string name="FieldDirectorWrong">Director contiene caracteres no permitidos (solo letras)</string>
-    <string name="FieldSynopsisEmpty">Sinopsis esta vacio</string>
-    <string name="FieldSynopsisWrong">Sinopsis contiene caracteres no permitidos (solo letras y números)</string>
-    <string name="FieldDateEmpty">Campo fecha vacio</string>
+    <string name="fieldTitleEmpty">Titulo vacio</string>
+    <string name="FieldTitleWrong">Caracteres no permitidos</string>
+    <string name="FieldDirectorEmpty">Director vacio</string>
+    <string name="FieldDirectorWrong">Caracteres no permitidos</string>
+    <string name="FieldSynopsisEmpty">Sinopsis vacio</string>
+    <string name="FieldSynopsisWrong">Caracteres no permitidos</string>
+    <string name="FieldDateEmpty">Fecha vacio</string>
     <string name="FieldDateWrong">La fecha introducida no es correcta</string>
     <string name="FieldRateEmpty">Valoracion vacia</string>
-    <string name="FieldRateWrong">Valoracion incorrecta numeros entre 0-5</string>
+    <string name="FieldRateWrong">Numeros entre 0 y 5</string>
     <string name="FieldGenreEmpty">Genero vacio</string>
+    <string name="newGenre">Añadir nuevo Genero</string>
+    <string name="InsertNewGenre">Inserte nuevo genero</string>
+    <string name="Insert">Insertar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="addedSuccess">Añadido con éxito</string>
 </resources>

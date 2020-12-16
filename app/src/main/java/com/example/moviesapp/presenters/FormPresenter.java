@@ -23,7 +23,16 @@ public class FormPresenter implements IForm.Presenter{
         view.finishFormActivity();
     }
 
-    public String getErr(String err){
+    @Override
+    public void onClickAddDate(){
+        view.showDatePicker();
+    }
+
+
+    @SuppressLint("LongLogTag")
+    @Override
+    public String getErr(String err) {
+        Log.d(TAG,"Inside getErr");
         String err_msg = "";
         switch (err){
             case "title_1":
@@ -56,8 +65,7 @@ public class FormPresenter implements IForm.Presenter{
             case "rate_2":
                 err_msg = MyApplication.getContext().getResources().getString(R.string.FieldRateWrong);
                 break;
-            case "genre":
-                err_msg = MyApplication.getContext().getResources().getString(R.string.FieldGenreEmpty);
+            default:
                 break;
         }
         return err_msg;
