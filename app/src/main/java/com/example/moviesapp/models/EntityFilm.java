@@ -11,11 +11,28 @@ public class EntityFilm {
     private String date;
     private String rate;
     private String genre;
+    private String id;
+    private String photo;
 
     public String getTitle() {
         return title;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 
     public Integer setTitle(String title) {
         int err = 0;
