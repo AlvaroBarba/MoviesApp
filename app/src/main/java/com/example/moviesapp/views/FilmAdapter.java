@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,21 +32,25 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
 
         private ImageView photo;
         private TextView title;
-        private TextView synopsis;
+        private TextView date;
 
         public FilmViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.firstName);
-            synopsis = (TextView) itemView.findViewById(R.id.date);
+            date = (TextView) itemView.findViewById(R.id.date);
             photo=(ImageView) itemView.findViewById(R.id.photo);
         }
 
         public void FilmBind(EntityFilm item) {
             title.setText(item.getTitle());
-            synopsis.setText(item.getSynopsis());
-            byte[] decodedString = Base64.decode(item.getPhoto(), Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            photo.setImageBitmap(decodedByte);
+            date.setText(item.getDate());
+            if(item.getPhoto() == null){
+                photo.setBackground(MyApplication.getContext().getDrawable(R.drawable.ic_launcher_palomitas_foreground));
+            }else{
+                byte[] decodedString = Base64.decode(item.getPhoto(), Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                photo.setImageBitmap(decodedByte);
+            }
         }
     }
 

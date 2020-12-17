@@ -40,6 +40,7 @@ public class FormActivity extends AppCompatActivity implements IForm.View {
     public final int mes = c.get(Calendar.MONTH);
     public final int dia = c.get(Calendar.DAY_OF_MONTH);
     public final int anio = c.get(Calendar.YEAR);
+    private String id;
 
 
 
@@ -59,7 +60,7 @@ public class FormActivity extends AppCompatActivity implements IForm.View {
         String[] types = {
                 getString(R.string.selectGenre),getString(R.string.TypeFiction), getString(R.string.TypeAction), getString(R.string.TypeDrama),
                 getString(R.string.TypeComedy), getString(R.string.TypePolice), getString(R.string.TypeRomantic),
-                getString(R.string.TypeChild)
+                getString(R.string.TypeChild), getString(R.string.TypeTerror)
         };
         spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, types));
 
@@ -200,6 +201,12 @@ public class FormActivity extends AppCompatActivity implements IForm.View {
             }
         });
 
+        id = getIntent().getStringExtra("id");
+        if(id!=null){
+            titleET.setText(id);
+        }else{
+
+        }
 
         addDate.setOnClickListener(v -> {
             presenter.onClickAddDate();

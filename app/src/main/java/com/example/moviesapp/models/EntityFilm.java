@@ -14,6 +14,9 @@ public class EntityFilm {
     private String id;
     private String photo;
 
+    public EntityFilm() {
+    }
+
     public String getTitle() {
         return title;
     }

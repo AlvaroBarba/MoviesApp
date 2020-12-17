@@ -54,4 +54,5 @@
     <string name="Insert">Insertar</string>
     <string name="cancel">Cancelar</string>
     <string name="addedSuccess">Añadido con éxito</string>
+    <string name="TypeTerror">terror</string>
 </resources>

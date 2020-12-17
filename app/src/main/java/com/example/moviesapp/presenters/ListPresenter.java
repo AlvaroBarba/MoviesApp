@@ -33,4 +33,25 @@ public class ListPresenter implements IList.Presenter {
         view.startAppCRUDActivity();
     }
 
+    @SuppressLint("LongLogTag")
+    public void onClickRecyclerViewItem(String id) {
+        Log.d(TAG, "Inside onClickRecyclerViewItem");
+        view.startFormActivity(id);
+
+    }
+
+    @SuppressLint("LongLogTag")
+    @Override
+    public void onSwipe(int position) {
+        Log.d(TAG, "Inside onSwipe");
+        view.onItemSwipe(position);
+    }
+
+    @SuppressLint("LongLogTag")
+    @Override
+    public void showToast() {
+        Log.d(TAG, "Inside showToast");
+        view.showDeleteToast();
+    }
+
 }
