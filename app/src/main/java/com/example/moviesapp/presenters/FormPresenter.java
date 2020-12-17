@@ -1,7 +1,12 @@
 package com.example.moviesapp.presenters;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.util.Log;
+
+import androidx.core.content.ContextCompat;
 
 import com.example.moviesapp.R;
 import com.example.moviesapp.interfaces.IForm;
@@ -69,5 +74,38 @@ public class FormPresenter implements IForm.Presenter{
                 break;
         }
         return err_msg;
+    }
+
+    public void onClickDeleteForm() {
+        view.alertRemoveImage();
+    }
+
+    public void onClickAcceptDelete() {
+        view.finishFormActivity();
+    }
+
+    public void onClickImage() {
+        int WriteExternalStoragePermission = ContextCompat.checkSelfPermission(MyApplication.getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        Log.d("FormPresenter", "WRITE_EXTERNAL_STORAGE Permission: " + WriteExternalStoragePermission);
+
+        if (WriteExternalStoragePermission != PackageManager.PERMISSION_GRANTED) {
+            //------PERMISO DENEGADO
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                view.IntentChooser();
+            } else {
+                view.showError();
+            }
+        } else {
+            //--------PERMISO ACEPTADO-------
+            view.selectImage();
+        }
+    }
+
+    public void PermissionGranted() {
+        view.selectImage();
+    }
+
+    public void PermissionDenied() {
+        view.showError();
     }
 }
