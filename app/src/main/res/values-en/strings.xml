@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MoviesApp</string>
     <string name="DeveloperContact">Contact: aabarba@iesfranciscodelosrios.es</string>
     <string name="developerName">Developer: Álvaro Barba Ruiz</string>
     <string name="ordenar">Order</string>
@@ -45,4 +44,10 @@
     <string name="Insert">Insert</string>
     <string name="cancel">Cancel</string>
     <string name="addedSuccess">Successfully added</string>
+    <string name="writeExternalStorageDENIED">Write permission denied</string>
+    <string name="WriteExternalStorageGRANTED">Write permission granted</string>
+    <string name="removeAlert">Erasing</string>
+    <string name="confirmDelete">¿Do you want to delete?</string>
+    <string name="selectImage">Select a image</string>
+    <string name="result">results</string>
 </resources>

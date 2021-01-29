@@ -1,16 +1,9 @@
 package com.example.moviesapp.views;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -18,9 +11,10 @@ import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -28,19 +22,25 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+
 import com.example.moviesapp.R;
 import com.example.moviesapp.interfaces.IForm;
 import com.example.moviesapp.models.EntityFilm;
+import com.example.moviesapp.models.FilmModel;
 import com.example.moviesapp.presenters.FormPresenter;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -65,7 +65,7 @@ public class FormActivity extends AppCompatActivity implements IForm.View {
     private Uri uri;
     final private int CODE_WRITE_EXTERNAL_STORAGE_PERMISSION = 123;
     private ConstraintLayout constraintLayoutFormActivity;
-
+    private FilmModel bbdd;
 
 
     @Override
@@ -75,6 +75,8 @@ public class FormActivity extends AppCompatActivity implements IForm.View {
         setContentView(R.layout.activity_form);
         constraintLayoutFormActivity = findViewById(R.id.FormConstraintLayout);
         presenter = new FormPresenter(this);
+        bbdd = new FilmModel();
+
 
         Button button = findViewById(R.id.save);
         addGenre = findViewById(R.id.addOption);
@@ -86,7 +88,10 @@ public class FormActivity extends AppCompatActivity implements IForm.View {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.formTitle);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         Spinner spinner = (Spinner) findViewById(R.id.genreSpinner);
+
         String[] types = {
                 getString(R.string.selectGenre), getString(R.string.TypeFiction), getString(R.string.TypeAction), getString(R.string.TypeDrama),
                 getString(R.string.TypeComedy), getString(R.string.TypePolice), getString(R.string.TypeRomantic),
@@ -231,20 +236,6 @@ public class FormActivity extends AppCompatActivity implements IForm.View {
             }
         });
 
-        id = getIntent().getStringExtra("id");
-        if (id != null) {
-            titleET.setText(id);
-        } else {
-        }
-
-        addDate.setOnClickListener(v -> {
-            presenter.onClickAddDate();
-        });
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        button.setOnClickListener(v -> {
-            presenter.onClickSaveButton();
-        });
 
         ImageButton galleryButton = (ImageButton) findViewById(R.id.addImage);
         galleryButton.setOnClickListener(new View.OnClickListener() {
@@ -255,16 +246,44 @@ public class FormActivity extends AppCompatActivity implements IForm.View {
         });
 
         removeImage();
+
+        addDate.setOnClickListener(v -> {
+            presenter.onClickAddDate();
+        });
+
+
+        button.setOnClickListener(v -> {
+
+            entityFilm.setTitle(titleET.getText().toString());
+            entityFilm.setDirector(directorET.getText().toString());
+            entityFilm.setSynopsis(synopsisET.getText().toString());
+            entityFilm.setDate(dateET.getText().toString());
+            entityFilm.setRate(rateET.getText().toString());
+            entityFilm.setGenre(spinner.toString());
+            if (galleryButton != null && galleryButton.getDrawable() != null) {
+                Bitmap bitmap = ((BitmapDrawable) galleryButton.getDrawable()).getBitmap();
+                if (bitmap != null) {
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                    byte[] byteArray = byteArrayOutputStream.toByteArray();
+                    String fotoEnBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                    entityFilm.setPhoto(fotoEnBase64);
+                }
+            }
+            presenter.onClickSaveButton(entityFilm);
+        });
     }
 
     public void alertRemoveImage() {
+        /*EntityFilm provisional*/
+        EntityFilm entityFilm = new EntityFilm();
         AlertDialog.Builder builder = new AlertDialog.Builder(FormActivity.this);
         builder.setTitle(R.string.removeAlert);
 
         builder.setPositiveButton(R.string.confirmDelete, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                presenter.onClickAcceptDelete();
+                presenter.onClickAcceptDelete(entityFilm);
                 // Toast.makeText(getApplicationContext(),"Yes button Clicked", Toast.LENGTH_LONG).show();
                 Log.i(TAG, "Yes button Clicked!");
             }
@@ -394,9 +413,9 @@ public class FormActivity extends AppCompatActivity implements IForm.View {
                 //Esta variable lo que realiza es aumentar en uno el mes ya que comienza desde 0 = enero
                 final int mesActual = month + 1;
                 //Formateo el día obtenido: antepone el 0 si son menores de 10
-                String diaFormateado = (dayOfMonth < 10)? CERO + String.valueOf(dayOfMonth):String.valueOf(dayOfMonth);
+                String diaFormateado = (dayOfMonth < 10) ? CERO + dayOfMonth : String.valueOf(dayOfMonth);
                 //Formateo el mes obtenido: antepone el 0 si son menores de 10
-                String mesFormateado = (mesActual < 10)? CERO + String.valueOf(mesActual):String.valueOf(mesActual);
+                String mesFormateado = (mesActual < 10) ? CERO + mesActual : String.valueOf(mesActual);
                 //Muestro la fecha con el formato deseado
                 dateET.setText(diaFormateado + BARRA + mesFormateado + BARRA + year);
 
@@ -450,8 +469,9 @@ public class FormActivity extends AppCompatActivity implements IForm.View {
     }
 
     @Override
-    public void finishFormActivity() {
+    public void finishFormActivity(EntityFilm entityFilm) {
         Log.d(TAG, "Inside startFormActivity()");
+        bbdd.insert(entityFilm);
         finish();
     }
 

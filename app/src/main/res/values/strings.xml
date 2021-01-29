@@ -54,10 +54,11 @@
     <string name="Insert">Insertar</string>
     <string name="cancel">Cancelar</string>
     <string name="addedSuccess">Añadido con éxito</string>
-    <string name="TypeTerror">terror</string>
+    <string name="TypeTerror" translatable="false">terror</string>
     <string name="writeExternalStorageDENIED">Permiso de escritura denegado</string>
     <string name="WriteExternalStorageGRANTED">Permiso concedido de escritura</string>
     <string name="removeAlert">Borrando</string>
     <string name="confirmDelete">¿desea borrar?</string>
     <string name="selectImage">Seleccione una imagen</string>
+    <string name="result">" resultados"</string>
 </resources>

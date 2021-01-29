@@ -10,22 +10,25 @@ import androidx.core.content.ContextCompat;
 
 import com.example.moviesapp.R;
 import com.example.moviesapp.interfaces.IForm;
+import com.example.moviesapp.models.EntityFilm;
+import com.example.moviesapp.models.FilmModel;
 import com.example.moviesapp.views.MyApplication;
 
-public class FormPresenter implements IForm.Presenter{
+public class FormPresenter implements IForm.Presenter {
 
     private static final String TAG = "presenters/FormPresenter";
-    private IForm.View view;
+    private final IForm.View view;
+    private final FilmModel filmModel = new FilmModel();
 
     public FormPresenter(IForm.View view) {
-        this.view=view;
+        this.view = view;
     }
 
     @SuppressLint("LongLogTag")
     @Override
-    public void onClickSaveButton() {
-        Log.d(TAG,"Inside OnClickSaveButton");
-        view.finishFormActivity();
+    public void onClickSaveButton(EntityFilm entityFilm) {
+        Log.d(TAG, "Inside OnClickSaveButton");
+        view.finishFormActivity(entityFilm);
     }
 
     @Override
@@ -80,8 +83,8 @@ public class FormPresenter implements IForm.Presenter{
         view.alertRemoveImage();
     }
 
-    public void onClickAcceptDelete() {
-        view.finishFormActivity();
+    public void onClickAcceptDelete(EntityFilm entityFilm) {
+        view.finishFormActivity(entityFilm);
     }
 
     public void onClickImage() {
@@ -90,7 +93,7 @@ public class FormPresenter implements IForm.Presenter{
 
         if (WriteExternalStoragePermission != PackageManager.PERMISSION_GRANTED) {
             //------PERMISO DENEGADO
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 view.IntentChooser();
             } else {
                 view.showError();
@@ -108,4 +111,13 @@ public class FormPresenter implements IForm.Presenter{
     public void PermissionDenied() {
         view.showError();
     }
+
+
+    @Override
+
+    public String[] getGenres() {
+        String[] tusMuertos = {"1"};
+        return tusMuertos;
+    }
+
 }

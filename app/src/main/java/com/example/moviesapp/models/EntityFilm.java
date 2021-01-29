@@ -3,16 +3,29 @@ package com.example.moviesapp.models;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class EntityFilm {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
+public class EntityFilm extends RealmObject {
+
+    @PrimaryKey
+    private String id;
     private String title;
     private String director;
     private String synopsis;
     private String date;
     private String rate;
     private String genre;
-    private String id;
     private String photo;
+    private boolean watched;
+
+    public boolean isWatched() {
+        return watched;
+    }
+
+    public void setWatched(boolean watched) {
+        this.watched = watched;
+    }
 
     public EntityFilm() {
     }
@@ -144,4 +157,5 @@ public class EntityFilm {
     public void setGenre(String genre) {
         this.genre = genre;
     }
+
 }

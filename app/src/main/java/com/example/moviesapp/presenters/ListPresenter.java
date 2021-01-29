@@ -4,11 +4,16 @@ import android.annotation.SuppressLint;
 import android.util.Log;
 
 import com.example.moviesapp.interfaces.IList;
+import com.example.moviesapp.models.EntityFilm;
+import com.example.moviesapp.models.FilmModel;
+
+import java.util.ArrayList;
 
 public class ListPresenter implements IList.Presenter {
 
-    private IList.View view;
-    private static final String TAG  = "presenters/ListPresenter";
+    private final IList.View view;
+    private static final String TAG = "presenters/ListPresenter";
+    private FilmModel filmModel = new FilmModel();
 
     public ListPresenter(IList.View view) {
         this.view=view;
@@ -52,6 +57,28 @@ public class ListPresenter implements IList.Presenter {
     public void showToast() {
         Log.d(TAG, "Inside showToast");
         view.showDeleteToast();
+    }
+
+    @SuppressLint("LongLogTag")
+    @Override
+    public ArrayList<EntityFilm> getAllItemsSummarize() {
+        Log.d(TAG, "Inside getAllItemsSummarize");
+        filmModel = new FilmModel();
+        return filmModel.getAllSummarize();
+    }
+
+    @Override
+    public boolean insertOnBBDD(EntityFilm film) {
+        boolean result = false;
+        if (filmModel.insert(film)) {
+            result = true;
+        }
+        return result;
+    }
+
+    @Override
+    public boolean deleteFilm(EntityFilm film) {
+        return filmModel.deleteFilm(film);
     }
 
 }
