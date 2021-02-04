@@ -1,5 +1,6 @@
 package com.example.moviesapp.views;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -9,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,10 +18,17 @@ import com.example.moviesapp.models.EntityFilm;
 
 import java.util.ArrayList;
 
-public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder> implements View.OnClickListener{
+public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder> implements View.OnClickListener {
 
-    private ArrayList<EntityFilm> items;
+    private static Context context;
     private View.OnClickListener listener;
+    private final ArrayList<EntityFilm> items;
+
+    // Contruye el objeto adaptador recibiendo la lista de datos
+    public FilmAdapter(@NonNull ArrayList<EntityFilm> items, Context context) {
+        this.items = items;
+        FilmAdapter.context = context;
+    }
 
     // Clase interna:
     // Se implementa el ViewHolder que se encargará
@@ -30,15 +37,15 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
             extends RecyclerView.ViewHolder {
 
 
-        private ImageView photo;
-        private TextView title;
-        private TextView date;
+        private final ImageView photo;
+        private final TextView title;
+        private final TextView date;
 
         public FilmViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.firstName);
             date = (TextView) itemView.findViewById(R.id.date);
-            photo=(ImageView) itemView.findViewById(R.id.photo);
+            photo = (ImageView) itemView.findViewById(R.id.photo);
         }
 
         public void FilmBind(EntityFilm item) {
@@ -52,11 +59,6 @@ public class FilmAdapter extends RecyclerView.Adapter<FilmAdapter.FilmViewHolder
                 photo.setImageBitmap(decodedByte);
             }
         }
-    }
-
-    // Contruye el objeto adaptador recibiendo la lista de datos
-    public FilmAdapter(@NonNull ArrayList<EntityFilm> items) {
-        this.items = items;
     }
 
     // Se encarga de crear los nuevos objetos ViewHolder necesarios

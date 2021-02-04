@@ -3,6 +3,7 @@ package com.example.moviesapp.models;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.UUID;
 
 import io.realm.Realm;
@@ -73,32 +74,73 @@ public class FilmModel {
         return flag;
     }
 
+    public static ArrayList<EntityFilm> getItemsByGenre(String genre) {
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<EntityFilm> results = realm.where(EntityFilm.class).contains("genre", genre).findAll();
+        ArrayList<EntityFilm> result = new ArrayList<>();
+        result.addAll(realm.copyFromRealm(results));
+        return result;
+    }
+
+    public static ArrayList<EntityFilm> getItemsByTitle(String title) {
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<EntityFilm> results = realm.where(EntityFilm.class).contains("title", title).findAll();
+        ArrayList<EntityFilm> result = new ArrayList<>();
+        result.addAll(realm.copyFromRealm(results));
+        return result;
+    }
+
+    public static ArrayList<EntityFilm> getItemsByDate(String date) {
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<EntityFilm> results = realm.where(EntityFilm.class).contains("date", date).findAll();
+        ArrayList<EntityFilm> result = new ArrayList<>();
+        result.addAll(realm.copyFromRealm(results));
+        return result;
+    }
+
+    public static ArrayList<EntityFilm> getItemsByAllCriterions(String genre, String date, String title) {
+        Realm realm = Realm.getDefaultInstance();
+        ArrayList<EntityFilm> result = new ArrayList<>();
+        RealmResults<EntityFilm> results = realm.where(EntityFilm.class).contains("title", title).and().equalTo("date", date).and().equalTo("genre", genre).findAll();
+        result.addAll(realm.copyFromRealm(results));
+        realm.close();
+        return result;
+    }
+
     public boolean updateFilm(EntityFilm film) {
         boolean flag = false;
         Realm realm = Realm.getDefaultInstance();
         try {
             realm.beginTransaction();
-            EntityFilm entityFilm = realm.where(EntityFilm.class).equalTo("id", film.getId()).findFirst();
-            entityFilm.setPhoto(film.getPhoto());
-            entityFilm.setDate(film.getDate());
-            entityFilm.setTitle(film.getTitle());
-            entityFilm.setGenre(film.getGenre());
-            entityFilm.setRate(film.getRate());
-            entityFilm.setSynopsis(film.getSynopsis());
-            entityFilm.setDirector(film.getDirector());
-            entityFilm.setWatched(film.isWatched());
-            realm.insertOrUpdate(entityFilm);
+            realm.copyToRealmOrUpdate(film);
             realm.commitTransaction();
             flag = true;
         } catch (Exception e) {
-            Log.d(TAG, "Error " + e);
         }
 
         return flag;
     }
-/*
-    public String[] getAllGenres(){
+
+    public ArrayList<String> getAllGenres() {
+        ArrayList<String> result = new ArrayList<>();
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<EntityFilm> results = realm.where(EntityFilm.class).distinct("genre").findAll();
+        if (results != null) {
+            ArrayList<EntityFilm> films = (ArrayList<EntityFilm>) realm.copyFromRealm(results);
+            for (EntityFilm f : films) {
+                if (f.getGenre() != null) {
+                    result.add(f.getGenre());
+                }
+            }
+        }
+        realm.close();
+        return result;
     }
 
- */
+    public EntityFilm getById(String id) {
+        Realm realm = Realm.getDefaultInstance();
+        EntityFilm result = realm.copyFromRealm(Objects.requireNonNull(realm.where(EntityFilm.class).equalTo("id", id).findFirst()));
+        realm.close();
+        return result;
+    }
 }

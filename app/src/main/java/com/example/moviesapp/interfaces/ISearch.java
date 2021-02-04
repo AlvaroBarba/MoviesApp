@@ -1,14 +1,21 @@
 package com.example.moviesapp.interfaces;
 
+import java.util.ArrayList;
+
 public interface ISearch {
 
-    public interface View{
+    interface View {
         void showDatePicker();
+
         void finishSearchActivity();
     }
 
-    public interface Presenter{
+    interface Presenter {
         void onClickDateButton();
+
         void onClickSearchButton();
+
+        ArrayList<String> getAllGenres();
+
     }
 }

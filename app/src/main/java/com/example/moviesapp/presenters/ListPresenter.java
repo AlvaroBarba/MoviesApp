@@ -13,7 +13,7 @@ public class ListPresenter implements IList.Presenter {
 
     private final IList.View view;
     private static final String TAG = "presenters/ListPresenter";
-    private FilmModel filmModel = new FilmModel();
+    private final FilmModel filmModel = new FilmModel();
 
     public ListPresenter(IList.View view) {
         this.view=view;
@@ -63,7 +63,6 @@ public class ListPresenter implements IList.Presenter {
     @Override
     public ArrayList<EntityFilm> getAllItemsSummarize() {
         Log.d(TAG, "Inside getAllItemsSummarize");
-        filmModel = new FilmModel();
         return filmModel.getAllSummarize();
     }
 
@@ -79,6 +78,23 @@ public class ListPresenter implements IList.Presenter {
     @Override
     public boolean deleteFilm(EntityFilm film) {
         return filmModel.deleteFilm(film);
+    }
+
+    @Override
+    public ArrayList<EntityFilm> getItemsByCriterion(String type, String content) {
+        if (type.equals("genre")) {
+            return FilmModel.getItemsByGenre(content);
+        } else if (type.equals("title")) {
+            return FilmModel.getItemsByTitle(content);
+        } else if (type.equals("date")) {
+            return FilmModel.getItemsByDate(content);
+        }
+        return null;
+    }
+
+    @Override
+    public ArrayList<EntityFilm> getItemsByAllCriterions(String genre, String date, String title) {
+        return FilmModel.getItemsByAllCriterions(genre, date, title);
     }
 
 }

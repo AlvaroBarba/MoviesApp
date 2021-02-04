@@ -14,6 +14,8 @@ import com.example.moviesapp.models.EntityFilm;
 import com.example.moviesapp.models.FilmModel;
 import com.example.moviesapp.views.MyApplication;
 
+import java.util.ArrayList;
+
 public class FormPresenter implements IForm.Presenter {
 
     private static final String TAG = "presenters/FormPresenter";
@@ -26,9 +28,13 @@ public class FormPresenter implements IForm.Presenter {
 
     @SuppressLint("LongLogTag")
     @Override
-    public void onClickSaveButton(EntityFilm entityFilm) {
+    public void onClickSaveButton(EntityFilm entityFilm, boolean flag) {
         Log.d(TAG, "Inside OnClickSaveButton");
-        view.finishFormActivity(entityFilm);
+        if (flag) {
+            filmModel.insert(entityFilm);
+        } else {
+            filmModel.updateFilm(entityFilm);
+        }
     }
 
     @Override
@@ -83,8 +89,8 @@ public class FormPresenter implements IForm.Presenter {
         view.alertRemoveImage();
     }
 
-    public void onClickAcceptDelete(EntityFilm entityFilm) {
-        view.finishFormActivity(entityFilm);
+    public void onClickAcceptDelete() {
+        view.finishFormActivity();
     }
 
     public void onClickImage() {
@@ -112,12 +118,20 @@ public class FormPresenter implements IForm.Presenter {
         view.showError();
     }
 
+    @Override
+    public boolean insert(EntityFilm film) {
+        return filmModel.insert(film);
+    }
 
     @Override
-
-    public String[] getGenres() {
-        String[] tusMuertos = {"1"};
-        return tusMuertos;
+    public ArrayList<String> getAllGenres() {
+        return filmModel.getAllGenres();
     }
+
+    @Override
+    public EntityFilm getItemById(String id) {
+        return filmModel.getById(id);
+    }
+
 
 }

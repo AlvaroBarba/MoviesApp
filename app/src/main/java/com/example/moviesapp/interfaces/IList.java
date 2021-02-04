@@ -38,6 +38,10 @@ public interface IList {
         boolean insertOnBBDD(EntityFilm entityFilm);
 
         boolean deleteFilm(EntityFilm film);
+
+        ArrayList<EntityFilm> getItemsByCriterion(String type, String content);
+
+        ArrayList<EntityFilm> getItemsByAllCriterions(String genre, String date, String title);
     }
 
 

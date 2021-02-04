@@ -47,13 +47,14 @@
                 android:id="@+id/deleteForm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="45dp"
+                android:layout_marginStart="44dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="15dp"
                 android:text="@string/DeleteForm"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/save"
-                app:layout_constraintTop_toBottomOf="@+id/Watched" />
+                app:layout_constraintTop_toBottomOf="@+id/Watched"
+                app:layout_constraintVertical_bias="0.0" />
 
             <ImageView
                 android:id="@+id/imageView7"

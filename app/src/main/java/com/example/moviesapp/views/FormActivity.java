@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,7 +36,6 @@ import androidx.core.app.ActivityCompat;
 import com.example.moviesapp.R;
 import com.example.moviesapp.interfaces.IForm;
 import com.example.moviesapp.models.EntityFilm;
-import com.example.moviesapp.models.FilmModel;
 import com.example.moviesapp.presenters.FormPresenter;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -44,6 +45,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class FormActivity extends AppCompatActivity implements IForm.View {
@@ -54,18 +56,25 @@ public class FormActivity extends AppCompatActivity implements IForm.View {
     public ImageButton addImage;
     public Button deleteImage;
     public Button addGenre;
-    public TextInputEditText dateET;
+    private final EntityFilm fEntity = new EntityFilm();
     public final Calendar c = Calendar.getInstance();
     public final int mes = c.get(Calendar.MONTH);
     public final int dia = c.get(Calendar.DAY_OF_MONTH);
     public final int anio = c.get(Calendar.YEAR);
-    private String id;
+    public Switch seeFilm;
     private static final int REQUEST_FILM_IMAGE = 200;
     private static final int REQUEST_SELECT_IMAGE = 201;
     private Uri uri;
     final private int CODE_WRITE_EXTERNAL_STORAGE_PERMISSION = 123;
     private ConstraintLayout constraintLayoutFormActivity;
-    private FilmModel bbdd;
+    public Spinner spinner;
+    private String id = null;
+    private ArrayAdapter<String> adapter;
+    private Button delete;
+    private TextInputLayout titleTIL, directorTIL, synopsisTIL, dateTIL, rateTIL;
+    private TextInputEditText titleET, directorET, synopsisET, dateET, rateET;
+    private boolean update = true;
+    private String Photo;
 
 
     @Override
@@ -75,7 +84,6 @@ public class FormActivity extends AppCompatActivity implements IForm.View {
         setContentView(R.layout.activity_form);
         constraintLayoutFormActivity = findViewById(R.id.FormConstraintLayout);
         presenter = new FormPresenter(this);
-        bbdd = new FilmModel();
 
 
         Button button = findViewById(R.id.save);
@@ -83,6 +91,8 @@ public class FormActivity extends AppCompatActivity implements IForm.View {
         addDate = findViewById(R.id.addDate);
         addImage = findViewById(R.id.addImage);
         deleteImage = findViewById(R.id.deleteImage);
+        seeFilm = findViewById(R.id.Watched);
+        delete = findViewById(R.id.deleteForm);
 
         Toolbar toolbar = findViewById(R.id.FormToolbar);
         setSupportActionBar(toolbar);
@@ -90,26 +100,28 @@ public class FormActivity extends AppCompatActivity implements IForm.View {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Spinner spinner = (Spinner) findViewById(R.id.genreSpinner);
+        spinner = (Spinner) findViewById(R.id.genreSpinner);
 
-        String[] types = {
-                getString(R.string.selectGenre), getString(R.string.TypeFiction), getString(R.string.TypeAction), getString(R.string.TypeDrama),
-                getString(R.string.TypeComedy), getString(R.string.TypePolice), getString(R.string.TypeRomantic),
-                getString(R.string.TypeChild), getString(R.string.TypeTerror)
-        };
-        spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, types));
+        ArrayList<String> types = presenter.getAllGenres();
+        types.add(0, getString(R.string.SelectSpinner));
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, types);
+        spinner.setAdapter(adapter);
+
 
         AlertDialog.Builder builder = new AlertDialog.Builder(FormActivity.this);
         builder.setTitle(R.string.newGenre);
         builder.setMessage(R.string.InsertNewGenre);
-        EditText dialog = new EditText(FormActivity.this);
+        EditText text = new EditText(FormActivity.this);
+        text.setInputType(InputType.TYPE_CLASS_TEXT);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
-        dialog.setLayoutParams(lp);
+        text.setLayoutParams(lp);
         builder.setPositiveButton(R.string.Insert, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                adapter.add(text.getText().toString());
+                spinner.setSelection(adapter.getPosition(text.getText().toString()));
                 Toast.makeText(getApplicationContext(), R.string.addedSuccess, Toast.LENGTH_LONG).show();
                 Log.i(TAG, "Yes button Clicked");
             }
@@ -122,23 +134,23 @@ public class FormActivity extends AppCompatActivity implements IForm.View {
             }
         });
         AlertDialog alertDialog = builder.create();
-        alertDialog.setView(dialog);
+        alertDialog.setView(text);
         addGenre.setOnClickListener(v -> {
             alertDialog.show();
         });
 
 
         EntityFilm entityFilm = new EntityFilm();
-        TextInputLayout titleTIL = findViewById(R.id.film);
-        TextInputEditText titleET = findViewById(R.id.filmET);
-        TextInputLayout directorTIL = findViewById(R.id.director);
-        TextInputEditText directorET = findViewById(R.id.directorET);
-        TextInputLayout synopsisTIL = findViewById(R.id.synopsis);
-        TextInputEditText synopsisET = findViewById(R.id.synopsisET);
-        TextInputLayout dateTIL = findViewById(R.id.calendar);
+        titleTIL = findViewById(R.id.film);
+        titleET = findViewById(R.id.filmET);
+        directorTIL = findViewById(R.id.director);
+        directorET = findViewById(R.id.directorET);
+        synopsisTIL = findViewById(R.id.synopsis);
+        synopsisET = findViewById(R.id.synopsisET);
+        dateTIL = findViewById(R.id.calendar);
         dateET = findViewById(R.id.calendarET);
-        TextInputLayout rateTIL = findViewById(R.id.rateUs);
-        TextInputEditText rateET = findViewById(R.id.rateUsET);
+        rateTIL = findViewById(R.id.rateUs);
+        rateET = findViewById(R.id.rateUsET);
 
         titleET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -252,38 +264,73 @@ public class FormActivity extends AppCompatActivity implements IForm.View {
         });
 
 
-        button.setOnClickListener(v -> {
+        id = getIntent().getStringExtra("id");
 
-            entityFilm.setTitle(titleET.getText().toString());
-            entityFilm.setDirector(directorET.getText().toString());
-            entityFilm.setSynopsis(synopsisET.getText().toString());
-            entityFilm.setDate(dateET.getText().toString());
-            entityFilm.setRate(rateET.getText().toString());
-            entityFilm.setGenre(spinner.toString());
-            if (galleryButton != null && galleryButton.getDrawable() != null) {
-                Bitmap bitmap = ((BitmapDrawable) galleryButton.getDrawable()).getBitmap();
-                if (bitmap != null) {
-                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-                    byte[] byteArray = byteArrayOutputStream.toByteArray();
-                    String fotoEnBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
-                    entityFilm.setPhoto(fotoEnBase64);
+        if (id != null) {
+            EntityFilm film = presenter.getItemById(id);
+            fEntity.setId(id);
+
+            titleET.setText(film.getTitle());
+            synopsisET.setText(film.getSynopsis());
+            dateET.setText(film.getDate());
+            directorET.setText(film.getDirector());
+            rateET.setText(film.getRate());
+            seeFilm.setChecked(film.isWatched());
+            Photo = film.getPhoto();
+            byte[] decodedString = Base64.decode(Photo, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            galleryButton.setImageBitmap(decodedByte);
+            spinner.setSelection(adapter.getPosition(film.getGenre()));
+
+
+        } else {
+            Button delete2 = (Button) findViewById(R.id.deleteForm);
+            delete2.setVisibility(View.INVISIBLE);
+        }
+
+        button.setOnClickListener(v -> {
+            if (fEntity.setTitle(titleET.getText().toString()) == 0 &&
+                    fEntity.setSynopsis(synopsisET.getText().toString()) == 0 &&
+                    fEntity.setRate(rateET.getText().toString()) == 0 &&
+                    fEntity.setDate(dateET.getText().toString()) == 0) {
+
+                fEntity.setWatched(seeFilm.isChecked());
+
+
+                if (galleryButton != null && galleryButton.getDrawable() != null) {
+                    Bitmap bitmap = ((BitmapDrawable) galleryButton.getDrawable()).getBitmap();
+                    if (bitmap != null) {
+                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                        byte[] byteArray = byteArrayOutputStream.toByteArray();
+                        String fotoEnBase64 = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                        fEntity.setPhoto(fotoEnBase64);
+                    }
                 }
+
+                fEntity.setGenre(spinner.getSelectedItem().toString());
+                if (id != null) {
+                    update = false;
+                }
+                presenter.onClickSaveButton(fEntity, update);
+
+            } else {
+                Log.d(TAG, "Error during saving data...");
             }
-            presenter.onClickSaveButton(entityFilm);
+            finish();
         });
+
     }
 
+
     public void alertRemoveImage() {
-        /*EntityFilm provisional*/
-        EntityFilm entityFilm = new EntityFilm();
         AlertDialog.Builder builder = new AlertDialog.Builder(FormActivity.this);
         builder.setTitle(R.string.removeAlert);
 
         builder.setPositiveButton(R.string.confirmDelete, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                presenter.onClickAcceptDelete(entityFilm);
+                presenter.onClickAcceptDelete();
                 // Toast.makeText(getApplicationContext(),"Yes button Clicked", Toast.LENGTH_LONG).show();
                 Log.i(TAG, "Yes button Clicked!");
             }
@@ -470,8 +517,14 @@ public class FormActivity extends AppCompatActivity implements IForm.View {
 
     @Override
     public void finishFormActivity(EntityFilm entityFilm) {
+        Log.d(TAG, "Inside startFormActivity(Entity)");
+        presenter.insert(entityFilm);
+        finish();
+    }
+
+    @Override
+    public void finishFormActivity() {
         Log.d(TAG, "Inside startFormActivity()");
-        bbdd.insert(entityFilm);
         finish();
     }
 

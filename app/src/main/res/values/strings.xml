@@ -61,4 +61,6 @@
     <string name="confirmDelete">¿desea borrar?</string>
     <string name="selectImage">Seleccione una imagen</string>
     <string name="result">" resultados"</string>
+    <string name="SelectSpinner">Seleccionar</string>
+    <string name="GenreNotEmpty">Genero no puede estar vacio</string>
 </resources>
