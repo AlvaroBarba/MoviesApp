@@ -50,17 +50,17 @@ public class EntityFilm extends RealmObject {
         this.photo = photo;
     }
 
-    public Integer setTitle(String title) {
+    public int setTitle(String title) {
         int err = 0;
-        if(!title.isEmpty()){
+        if (!title.isEmpty()) {
             Pattern p = Pattern.compile("[a-zA-ZñÑ ]");
             Matcher m = p.matcher(title);
-            if(!m.find()){
+            if (!m.find()) {
                 err = 2; //Only letters
-            }else{
+            } else {
                 this.title = title.toLowerCase();
             }
-        }else{
+        } else {
             err = 1; //Empty field
         }
         return err;
@@ -70,17 +70,17 @@ public class EntityFilm extends RealmObject {
         return director;
     }
 
-    public Integer setDirector(String director) {
+    public int setDirector(String director) {
         int err = 0;
-        if(!director.isEmpty()){
+        if (!director.isEmpty()) {
             Pattern p = Pattern.compile("[a-zA-ZñÑ ]");
             Matcher m = p.matcher(director);
-            if(!m.find()){
+            if (!m.find()) {
                 err = 2; //Only letters
-            }else{
+            } else {
                 this.director = director.toLowerCase();
             }
-        }else{
+        } else {
             err = 1; //Empty field
         }
         return err;
@@ -90,17 +90,17 @@ public class EntityFilm extends RealmObject {
         return synopsis;
     }
 
-    public Integer setSynopsis(String synopsis) {
+    public int setSynopsis(String synopsis) {
         int err = 0;
-        if(!synopsis.isEmpty()){
+        if (!synopsis.isEmpty()) {
             Pattern p = Pattern.compile("[a-zA-Z0-9ñÑ ]");
             Matcher m = p.matcher(synopsis);
-            if(!m.find()){
+            if (!m.find()) {
                 err = 2; //Only letters and numbers
-            }else{
+            } else {
                 this.synopsis = synopsis.toLowerCase();
             }
-        }else{
+        } else {
             err = 1; //Empty field
         }
         return err;
@@ -110,7 +110,7 @@ public class EntityFilm extends RealmObject {
         return date;
     }
 
-    public Integer setDate(String date) {
+    public int setDate(String date) {
         int err = 0;
         if (!date.isEmpty()) {
             Pattern p = Pattern.compile("^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)" +
@@ -119,7 +119,7 @@ public class EntityFilm extends RealmObject {
                     "(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)" +
                     "(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$");
             Matcher m = p.matcher(date);
-            if(!m.find()){
+            if (!m.find()) {
                 err = 2; //Date not correct
             }else{
                 this.date=date;
@@ -134,17 +134,17 @@ public class EntityFilm extends RealmObject {
         return rate;
     }
 
-    public Integer setRate(String rate) {
+    public int setRate(String rate) {
         int err = 0;
-        if(!rate.isEmpty()){
+        if (!rate.isEmpty()) {
             Pattern p = Pattern.compile("[0-5]");
             Matcher m = p.matcher(rate);
-            if(!m.find()){
+            if (!m.find()) {
                 err = 2; //No numbers into 0 and 5 both included
-            }else{
+            } else {
                 this.rate = rate;
             }
-        }else{
+        } else {
             err = 1; //Empty field
         }
         return err;
