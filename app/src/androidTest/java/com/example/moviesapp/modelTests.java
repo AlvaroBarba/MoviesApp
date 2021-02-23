@@ -61,11 +61,11 @@ public class modelTests {
 
     @Test
     public void getGenres() {
-        ArrayList<String> categories = new ArrayList<>();
-        categories.add("Fantasy");
-        categories.add("Action");
-        categories.add("HP");
-        assertEquals(categories, this.model.getAllGenres());
+        ArrayList<String> genres = new ArrayList<>();
+        genres.add("Fantasy");
+        genres.add("Action");
+        genres.add("HP");
+        assertEquals(genres, this.model.getAllGenres());
     }
 
     @Test

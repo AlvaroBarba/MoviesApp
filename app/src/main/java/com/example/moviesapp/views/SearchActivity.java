@@ -46,11 +46,12 @@ public class SearchActivity extends AppCompatActivity implements ISearch.View {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.parametersOfSearch);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         editTextDate = findViewById(R.id.dateSearch);
         editTextTitle = findViewById(R.id.titleForSearch);
 
 
-        spinner = (Spinner) findViewById(R.id.searchSpinner);
+        spinner = findViewById(R.id.searchSpinner);
         ArrayList<String> types = presenter.getAllGenres();
         types.add(0, getString(R.string.SelectSpinner));
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, types);

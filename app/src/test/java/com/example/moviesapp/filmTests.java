@@ -34,9 +34,9 @@ public class filmTests {
 
     @Test
     public void filmSynopsis() {
-        assertEquals(0, this.film.setSynopsis("A new magician at howarts"));
+        assertEquals(0, this.film.setSynopsis("A new magician at hogwarts"));
         assertEquals(2, this.film.setSynopsis("@~&"));
-        assertEquals("a new magician at howarts", this.film.getSynopsis());
+        assertEquals("a new magician at hogwarts", this.film.getSynopsis());
     }
 
     @Test
@@ -57,8 +57,8 @@ public class filmTests {
     public void filmDate() {
         assertEquals(0, this.film.setDate("20/08/2020"));
         assertEquals(2, this.film.setDate("34/12/2020"));
-        assertEquals(0, this.film.setDate("16/9/2020"));
-        assertEquals("16/9/2020", this.film.getDate());
+        assertEquals(0, this.film.setDate("16/09/2020"));
+        assertEquals("16/09/2020", this.film.getDate());
     }
 
     @Test
